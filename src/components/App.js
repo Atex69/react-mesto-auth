@@ -83,13 +83,14 @@ function App() {
     }, [isLoggedIn, navigate]);
 
     useEffect(() => {
+        if (isLoggedIn === true) {
         Promise.all([api.getUserData(), api.getInitialCards()]).then(([user, cards]) => {
             setCurrentUser(user);
             setCards(cards);
         }).catch((err) => {
             console.error(err);
-        });
-    }, []);
+        })}
+    }, [isLoggedIn]);
 
     function handleUpdateUser(data) {
         api.setUserInfo(data).then((newUser) => {
